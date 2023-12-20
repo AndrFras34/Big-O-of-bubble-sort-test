@@ -1,0 +1,64 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <chrono>
+
+using namespace std;
+using namespace std::chrono;
+
+// Function to perform Bubble Sort
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap if the element found is greater than the next element
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+// Function to print an array
+void printArray(const int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+// Function to generate an array of random integers
+void generateRandomArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 100; // Generate random integers between 0 and 99
+    }
+}
+
+// Function to measure the time complexity of Bubble Sort
+void measureBubbleSortTime(int arr[], int size) {
+    auto start = high_resolution_clock::now(); // Start the clock
+
+    bubbleSort(arr, size); // Perform Bubble Sort
+
+    auto stop = high_resolution_clock::now(); // Stop the clock
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
+}
+
+int main() {
+    const int size = 10000; // Size of the array
+
+    int arr[size];
+    generateRandomArray(arr, size);
+
+    cout << "Original Array:" << endl;
+    printArray(arr, size);
+
+    cout << "Applying Bubble Sort..." << endl;
+    measureBubbleSortTime(arr, size);
+
+    cout << "Sorted Array:" << endl;
+    printArray(arr, size);
+
+    return 0;
+}
